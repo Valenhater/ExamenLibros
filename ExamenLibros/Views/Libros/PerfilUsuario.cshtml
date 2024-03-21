@@ -1,0 +1,24 @@
+﻿﻿@using System.Security.Claims
+
+<h1>
+    Nombre: @Context.User.Identity.Name
+</h1>
+
+<ul class="list-group">
+    <li class="list-group-item">
+        Email: @Context.User.FindFirst("Email").Value
+    </li>
+    <li class="list-group-item">
+        Id: @Context.User.FindFirst("id").Value
+    </li>
+    <li class="list-group-item">
+        Email: @Context.User.FindFirst("Email").Value
+    </li>
+    <li class="list-group-item">
+        Email: @Context.User.FindFirst("Email").Value
+    </li>
+    <li class="list-group-item">
+        <img src="@HelperPathProvider.MapUrlPath(@Context.User.FindFirst("Foto").Value, Folders.Imagenes)" width="100px" />
+    </li>
+
+</ul>

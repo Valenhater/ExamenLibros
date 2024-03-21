@@ -1,0 +1,83 @@
+﻿@model IEnumerable<ExamenLibros.Models.Libro>
+
+@{
+    ViewData["Title"] = "Libros";
+    List<int> carrito = Context.Session.GetObject<List<int>>("CARRITO");
+}
+
+<h1>Libros</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>
+                ID LIBRO
+            </th>
+            <th>
+                TITULO
+            </th>
+            <th>
+                AUTOR
+            </th>
+            <th>
+                Editorial
+            </th>
+            <th>
+                Portada
+            </th>
+            <th>
+                Resumen
+            </th>
+            <th>
+                Precio
+            </th>
+            <th>
+                IdGenero
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.IdLibro
+                </td>
+                <td>
+                    @item.Titulo
+                </td>
+                <td>
+                    @item.Autor
+                </td>
+                <td>
+                    @item.Editorial
+                </td>
+                <td>
+                    <img src="@HelperPathProvider.MapUrlPath(@item.Portada, Folders.Imagenes)" width="100px" />
+                </td>
+                <td>
+                    @item.Resumen
+                </td>
+                <td>
+                    @item.Precio
+                </td>
+                <td>
+                    @item.IdGenero
+                </td>
+                <td>
+                    <a asp-controller="lIBROS"
+                       asp-action="DetalleLibro"
+                       asp-route-id="@item.IdLibro"
+                       class="btn btn-info">
+                        DETALLE LIBRO
+                    </a>
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

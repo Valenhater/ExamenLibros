@@ -1,0 +1,80 @@
+﻿@model IEnumerable<ExamenLibros.Models.Libro>
+
+@{
+    ViewData["Title"] = "Carrito";
+}
+
+<h1>Carrito</h1>
+
+
+@if (Model != null && Model.Any())
+{
+
+    <form asp-controller="Libros" asp-action="ComprarProducto" method="post">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <input type="hidden" name="libros[@i]" value="@Model.ElementAt(i).IdLibro" />
+            <input type="hidden" name="iduser" value="@Context.User.FindFirst("id").Value" />
+        }
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdLibro)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Titulo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Autor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Editorial)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Portada)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Resumen)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Precio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IdGenero)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+                @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                        <td>@Html.DisplayFor(_ => Model.ElementAt(i).IdLibro)</td>
+                        <td>@Html.DisplayFor(_ => Model.ElementAt(i).Titulo)</td>
+                        <td>@Html.DisplayFor(_ => Model.ElementAt(i).Autor)</td>
+                        <td>@Html.DisplayFor(_ => Model.ElementAt(i).Editorial)</td>
+                        <td>@Html.DisplayFor(_ => Model.ElementAt(i).Portada)</td>
+                        <td>@Html.DisplayFor(_ => Model.ElementAt(i).Resumen)</td>                      
+                        <td>@Html.DisplayFor(_ => Model.ElementAt(i).Precio) €</td>
+                        <td>@Html.DisplayFor(_ => Model.ElementAt(i).IdGenero)</td>
+                        <td>
+                            <input type="hidden" name="cantidades[@i]" value="1" min="1" class="form-control" />
+                        <a asp-controller="Libros"
+                           asp-action="Carrito"
+                               asp-route-idLibroEliminar="@Model.ElementAt(i).IdLibro"
+                           class="btn btn-danger">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+        <button type="submit" class="btn btn-primary">Comprar productos</button>
+    </form>
+}
+else
+{
+    <h1>No tienes productos en el carrito</h1>
+}

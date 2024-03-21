@@ -1,0 +1,81 @@
+﻿@model ExamenLibros.Models.Libro
+
+@{
+    ViewData["Title"] = "DetalleLibro";
+    List<int> carrito = Context.Session.GetObject<List<int>>("CARRITO");
+}
+
+<h1>DetalleLibro</h1>
+
+<div>
+    <h4>Libro</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdLibro)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdLibro)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Autor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Autor)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Editorial)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Editorial)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Portada)
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="@HelperPathProvider.MapUrlPath(@Model.Portada, Folders.Imagenes)" width="100px" />
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Resumen)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Resumen)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdGenero)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdGenero)
+        </dd>
+    </dl>
+</div>
+@if (carrito != null && carrito.Contains(Model.IdLibro))
+{
+    <button class="btn btn-success">
+        <img src="https://cdn2.iconfinder.com/data/icons/default-1/100/.svg-6-512.png" alt="Guardado" style="width:20px;height:20px" />
+    </button>
+}
+else
+{
+    <a asp-controller="Libros"
+       asp-action="GuardarLibroCarrito"
+       asp-route-idLibro="@Model.IdLibro"
+       class="btn btn-info">
+        <img src=" https://e7.pngegg.com/pngimages/833/426/png-clipart-shopping-cart-shopping-cart.png" alt="Guardar" style="width:20px;height:20px" />
+    </a>
+}
+<div>
+    <a asp-controller="Libros" asp-action="Libros">Volver a la lista de libros</a>
+</div>
